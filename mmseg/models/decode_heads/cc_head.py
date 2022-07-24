@@ -36,6 +36,7 @@ class CCHead(FCNHead):
         output = self.convs[0](x)
         for _ in range(self.recurrence):
             output = self.cca(output)
+        print('Output shape after cca', output.shape)
         output = self.convs[1](output)
         if self.concat_input:
             output = self.conv_cat(torch.cat([x, output], dim=1))
