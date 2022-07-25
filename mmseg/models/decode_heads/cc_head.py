@@ -38,7 +38,10 @@ class CCHead(FCNHead):
             output = self.cca(output)
         print('Output shape after cca', output.shape)
         output = self.convs[1](output)
+        print('Output shape after cca and selfconv', output.shape)
         if self.concat_input:
             output = self.conv_cat(torch.cat([x, output], dim=1))
         output = self.cls_seg(output)
+        print('Output shape after cca,selfconv and cls_seg', output.shape)
+        
         return output
