@@ -46,7 +46,7 @@ class CCHead(FCNHead):
         #noise = np.random.normal(mean, sigma, output[0][1].shape)
         for index1 in range(output.shape[0]):
             for index2 in range(output.shape[1]):
-                noise = np.random.normal(mean, sigma, output[index1][index2].shape)
+                noise = torch.rand.normal(mean, sigma, output[index1][index2].shape)
                 output[index1][index2] = output[index1][index2] + noise
         if self.concat_input:
             output = self.conv_cat(torch.cat([x, output], dim=1))
