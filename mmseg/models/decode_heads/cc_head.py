@@ -47,7 +47,7 @@ class CCHead(FCNHead):
         for index1 in range(output.shape[0]):
             for index2 in range(output.shape[1]):
                 noise = torch.normal(mean, sigma, output[index1][index2].shape).to(torch.device("cuda"))
-                output[index1][index2] = output[index1][index2] + noise
+                output[index1][index2] = output[index1][index2].clone() + noise
         if self.concat_input:
             output = self.conv_cat(torch.cat([x, output], dim=1))
         output = self.cls_seg(output)
