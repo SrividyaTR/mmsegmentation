@@ -43,7 +43,7 @@ class CCHead(FCNHead):
         var = .1
         sigma = var ** 0.5
 
-        output2 = output
+        output2 = output.clone()
         #noise = np.random.normal(mean, sigma, output[0][1].shape)
         for index1 in range(output.shape[0]):
             for index2 in range(output.shape[1]):
