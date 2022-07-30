@@ -43,15 +43,11 @@ class CCHead(FCNHead):
         var = .1
         sigma = var ** 0.5
 
-        output2 = output.clone()
-        #noise = np.random.normal(mean, sigma, output[0][1].shape)
-        for index1 in range(output.shape[0]):
-            for index2 in range(output.shape[1]):
-                noise = torch.normal(mean, sigma, output[index1][index2].shape).to(torch.device("cuda"))
-                output2[index1][index2] = output[index1][index2] + noise
+        output = output + (sigma)*torch.randn(output.size()) + mean
+
         if self.concat_input:
-            output2 = self.conv_cat(torch.cat([x, output2], dim=1))
-        output2 = self.cls_seg(output2)
+            output = self.conv_cat(torch.cat([x, output], dim=1))
+        output = self.cls_seg(output)
         #print('Output shape after cca,selfconv and cls_seg', output.shape)
         
-        return output2
+        return output
