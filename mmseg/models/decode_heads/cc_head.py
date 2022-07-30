@@ -39,11 +39,8 @@ class CCHead(FCNHead):
             output = self.cca(output)
         output = self.convs[1](output)
         print('Output shape after cca and selfconv', output.shape)
-        mean = 0
-        var = .1
-        sigma = var ** 0.5
 
-        output = output + (sigma)*torch.randn(output.size()) + mean
+        output = output + (0.1 ** 0.5)*torch.randn(output.size())
 
         if self.concat_input:
             output = self.conv_cat(torch.cat([x, output], dim=1))
