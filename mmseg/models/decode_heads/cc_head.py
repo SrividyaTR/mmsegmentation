@@ -37,10 +37,9 @@ class CCHead(FCNHead):
         output = self.convs[0](x)
         for _ in range(self.recurrence):
             output = self.cca(output)
+        output = output + (0.1 ** 0.5)*torch.randn(output.size()).cuda()
         output = self.convs[1](output)
         print('Output shape after cca and selfconv', output.shape)
-
-        output = output + (0.1 ** 0.5)*torch.randn(output.size()).cuda()
 
         if self.concat_input:
             output = self.conv_cat(torch.cat([x, output], dim=1))
