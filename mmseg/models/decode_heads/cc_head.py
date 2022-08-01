@@ -37,7 +37,7 @@ class CCHead(FCNHead):
         output = self.convs[0](x)
         for _ in range(self.recurrence):
             output = self.cca(output)
-            output = output + 2 + (0.1 ** 0.5)*torch.randn(output.size()).cuda()
+            output = output + 0.5 + (0.1 ** 0.5)*torch.randn(output.size()).cuda()
         
         output = self.convs[1](output)
         
